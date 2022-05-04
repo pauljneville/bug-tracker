@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Bug Tracker
+Welcome
 
-First, run the development server:
+This is a web app to track tasks and issues in a software development project and to assign users who are governed by user roles that determine their access to functions.
+hosted at: https://bug-tracker-one.vercel.app
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+See wireframe shots below to get excited. These are very raw and subject to change.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## -- Auth Section --
+### Login Page
+![login page](https://bug-tracker-one.vercel.app/page-login-screen.png)
+### Forgot Password Page
+![forgot password page](https://bug-tracker-one.vercel.app/page-forgot-password.png)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## -- Project Section --
+### Project List Page
+![login page](https://bug-tracker-one.vercel.app/page-projects-list.png)
+### New Project Page
+![login page](https://bug-tracker-one.vercel.app/page-new-project.png)
+### A Project with Tickets Page
+![login page](https://bug-tracker-one.vercel.app/page-project-with-tickets.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## -- Ticket Section --
+### New Ticket Page
+![login page](https://bug-tracker-one.vercel.app/page-new-ticket.png)
+### A Ticket with Comments Page
+![login page](https://bug-tracker-one.vercel.app/page-ticket-with-comments.png)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## -- Notification Section --
+### Bells Fragment
+![login page](https://bug-tracker-one.vercel.app/page-bells.png)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## -- User-Role Section --
+### Users List Page
+![login page](https://bug-tracker-one.vercel.app/page-users-list.png)
+### Roles List Page
+![login page](https://bug-tracker-one.vercel.app/page-roles-list.png)
