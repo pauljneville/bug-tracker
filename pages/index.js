@@ -19,7 +19,7 @@ export default function Home() {
         <p className={styles.description}>
           This is a web app to track tasks and issues in a software development project and to assign users who are governed by user roles that determine their access to functions.
         </p>
-        <img src="https://bug-tracker-one.vercel.app/page-tickets-on-project.png" alt="possible future version of said tracking app" />
+        <img src="https://bug-tracker-one.vercel.app/v0/page-project-with-tickets.png" alt="possible future version of said tracking app" />
       </main>
 
       <footer className={styles.footer}>
