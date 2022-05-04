@@ -1,15 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Metatags from '../components/Metatags'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Bug Tracker</title>
-        <meta name="description" content="web app to track tasks and issues in a software development project." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Metatags />
 
       <main className={styles.main}>
         <h1 className={styles.title}>
