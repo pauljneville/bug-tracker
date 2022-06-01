@@ -24,8 +24,6 @@ export default function Projects() {
                     return { ...data };
                 });
                 setProjects(projects);
-                console.log("------projects --------")
-                console.log(snapshot.docs);
             } catch (err) {
                 console.error(err);
             }
@@ -46,7 +44,6 @@ export default function Projects() {
                 <h1>Projects</h1>
                 <ul>
                     {projects?.map((project) => {
-                        console.log(project.data);
                         return (<li key={project?.code ?? "1"}>{project?.owner} {project?.projectName} - {project?.stage}</li>);
                     })}
                 </ul>
