@@ -14,3 +14,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+ul li {
+  padding: 0 1rem;
+}

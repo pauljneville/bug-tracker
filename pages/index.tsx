@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Metatags from '../components/Metatags'
 import { getAllUsers } from '../lib/firebase'
 import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 export async function getServerSideProps(context) {
   const allUserDocs = await getAllUsers();
@@ -25,6 +26,8 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ users }) {
+  console.log("------ users ------");
+  console.log(users);
   return (
     <div className={styles.container}>
       <Metatags />
@@ -41,8 +44,8 @@ export default function Home({ users }) {
 
         <p>We have the following users registered:</p>
         <ul>
-          {users.map((user) => {
-            <li>{user.firstName}</li>
+          {users?.map((user) => {
+            return (<li key={user?.username}>{user?.displayName} - {user?.roles != null ? user?.roles[0] : ""}</li>);
           })}
         </ul>
       </main>
