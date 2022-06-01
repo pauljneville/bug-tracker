@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Metatags from '../components/Metatags';
+import Metatags from '../../components/Metatags';
 
 export default function Tickets() {
     return (

@@ -1,8 +1,9 @@
 .topnav ul {
   list-style: none;
   display: flex;
-  padding: 0 4rem;
+  padding: 0 4rem 0 10rem;
   background-color: burlywood;
+  min-height: 1.5rem;
 }
 
 .topnav ul li {
