@@ -1,0 +1,10 @@
+.topnav ul {
+  list-style: none;
+  display: flex;
+  padding: 0 4rem;
+  background-color: burlywood;
+}
+
+.topnav ul li {
+  padding: 0 1rem;
+}

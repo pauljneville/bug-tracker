@@ -4,9 +4,20 @@ import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignO
 import { doc, getDoc, writeBatch } from 'firebase/firestore'
 import debounce from 'lodash.debounce';
 import { useForm } from 'react-hook-form';
+import styles from '../styles/EnterPage.module.css';
+import Router from 'next/router'
+import Link from 'next/link';
 
 export default function EnterPage(props) {
     const { user, username } = useContext(UserContext);
+    useEffect(() => {
+        if (username) {
+            Router.push('/');
+            console.log("a username");
+        } else {
+            console.log("no username");
+        }
+    }, [username]);
 
     // 1. user signed out <SignInButton />
     // 2. user signed in, but missing username <UsernameForm />
@@ -42,6 +53,8 @@ const SignInButton = () => {
 const UsernameForm = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+
     const [userName, setUserName] = useState('');
     const [isValid, setIsValid] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -51,6 +64,7 @@ const UsernameForm = () => {
     useEffect(() => {
         checkUsername(userName);
     }, [userName]);
+
 
     const onUsernameChange = (e) => {
         // username must be between 3 and 15 characters long
@@ -70,33 +84,22 @@ const UsernameForm = () => {
             setIsValid(false);
         }
     };
-
     const onFirstNameChange = (e) => {
-        // username must be between 3 and 15 characters long
-        // containing only letters, numbers, underscore
+        // username must be between 3 and 15 characters long, only letters
         const val = e.target.value.toLowerCase();
-        const re = /^(?=[a-zA-Z0-9]{3,15}$)$/;
+        const re = /^(?=[a-zA-Z]{3,15}$)$/;
 
-        // check that username is >= 3 characters and passes regex format
-        if (val.length < 3) {
-            setUserName(val);
-        }
         if (re.test(val)) {
-            setUserName(val);
+            setFirstName(val);
         }
     };
     const onLastNameChange = (e) => {
-        // username must be between 3 and 15 characters long
-        // containing only letters, numbers, underscore
+        // username must be between 3 and 15 characters long, only letters
         const val = e.target.value.toLowerCase();
-        const re = /^(?=[a-zA-Z0-9]{3,15}$)$/;
+        const re = /^(?=[a-zA-Z]{3,15}$)$/;
 
-        // check that username is >= 3 characters and passes regex format
-        if (val.length < 3) {
-            setUserName(val);
-        }
         if (re.test(val)) {
-            setUserName(val);
+            setLastName(val);
         }
     };
 
@@ -127,8 +130,8 @@ const UsernameForm = () => {
                     photoURL: user.photoURL,
                     displayName: user.displayName,
                     email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
+                    firstName: firstName,
+                    lastName: lastName,
                     roles: [
                         "user"
                     ],
@@ -143,16 +146,19 @@ const UsernameForm = () => {
     };
 
     return (
-        !username && (
-            <section>
-                <h3>Choose Username</h3>
-                <form onSubmit={onSubmit}>
-                    <input placeholder="username" onChange={onUsernameChange} />
-                    <UsernameMessage username={userName} isValid={isValid} loading={loading} />
-                    <button type="submit" className="btn-green" disabled={!isValid}>
-                        Choose
-                    </button>
-                    {/* <h3>Debug State</h3>
+        <>
+            {!username && (
+                <section>
+                    <h3>Choose Username</h3>
+                    <form onSubmit={onSubmit} className={styles.enterForm}>
+                        <input placeholder="firstName" onChange={onFirstNameChange} />
+                        <input placeholder="lastName" onChange={onLastNameChange} />
+                        <input placeholder="username" onChange={onUsernameChange} />
+                        <UsernameMessage username={userName} isValid={isValid} loading={loading} />
+                        <button type="submit" className="btn-green" disabled={!isValid}>
+                            Choose
+                        </button>
+                        {/* <h3>Debug State</h3>
                     <div>
                         Username: {userName}
                         <br />
@@ -160,9 +166,10 @@ const UsernameForm = () => {
                         <br />
                         Username Valid: {isValid.toString()}
                     </div> */}
-                </form>
-            </section>
-        )
+                    </form>
+                </section>
+            )}
+        </>
     );
 }
 

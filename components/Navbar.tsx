@@ -60,18 +60,20 @@ export default function Navbar() {
                             <><Image src={user?.photoURL || "/default-profile.png"} alt="user photo" width="50" height="50" /></>
                         </Link>
                     </li>
-                    <li>
-                        <SignOutButton />
-                    </li>
+                    {username && (
+                        <li>
+                            <SignOutButton />
+                        </li>
+                    )}
                 </>
-                {/* )}
-                 {!username && ( 
-                //     <li>
-                //         <Link href="/enter" passHref={true}>
-                //             <button className="btn-blue">Log in</button>
-                //         </Link>
-                //     </li>
-                // )}*/}
+                {/* )} */}
+                {!username && (
+                    <li>
+                        <Link href="/enter" passHref={true}>
+                            <button className="btn-blue">Log in</button>
+                        </Link>
+                    </li>
+                )}
             </ul>
         </nav>
     );

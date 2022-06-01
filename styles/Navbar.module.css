@@ -1,9 +1,13 @@
 .navbar ul {
+  min-height: 100%;
   list-style: none;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: azure;
+  margin: 0;
 }
 
 .navbar ul li {
-  padding: 0 1rem;
+  padding: 1rem 0;
 }

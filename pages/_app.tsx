@@ -2,14 +2,19 @@ import '../styles/globals.css'
 import { UserContext } from '../lib/context';
 import { useUserData } from '../lib/hooks';
 import Navbar from '../components/Navbar';
+import TopNav from '../components/TopNav';
+import TwoColumn from '../components/TwoColumn';
 
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
 
   return (
     <UserContext.Provider value={userData}>
-      <Navbar />
-      <Component {...pageProps} />
+      <TopNav />
+      <TwoColumn>
+        <Navbar />
+        <Component {...pageProps} />
+      </TwoColumn>
     </UserContext.Provider>
   );
 }

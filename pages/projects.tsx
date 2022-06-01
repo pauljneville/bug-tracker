@@ -35,6 +35,10 @@ export default function Projects() {
             .catch(console.error);
     }, []);
 
+    /**
+     * return table of projects
+     */
+
     return (
         <>
             <Metatags title="Projects"
