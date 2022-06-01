@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { UserContext } from '../lib/context';
 import { auth, googleSignOut } from '../lib/firebase';
 import Image from 'next/image';
+import styles from '../styles/Navbar.module.css'
 
 export default function Navbar() {
     const { user, username } = useContext(UserContext);
@@ -20,7 +21,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar">
+        <nav className={styles.navbar}>
             <ul>
                 <li>
                     <Link href="/">

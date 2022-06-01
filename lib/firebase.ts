@@ -15,7 +15,6 @@ const firebaseConfig = {
     measurementId: "G-F6HKHYVN4Q"
 };
 
-
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
@@ -38,7 +37,7 @@ export async function getUserWithUsername(username) {
     return userDoc;
 }
 
-/**`
+/**
  * Converts a firestore document to JSON
  * @param  {DocumentSnapshot} doc
  */
@@ -58,6 +57,16 @@ export function postToJSON(doc) {
 export async function getAllUsers() {
     const usersRef = collection(firestore, 'users');
     const q = query(usersRef);
+    const snapshot = await getDocs(q);
+    return snapshot.docs;
+}
+
+/**
+ * Gets all projects
+ */
+export async function getAllProjects(username) {
+    const projectsRef = collection(firestore, 'projects');
+    const q = query(projectsRef, where('username', '==', username));
     const snapshot = await getDocs(q);
     return snapshot.docs;
 }

@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
 
   const users = allUserDocs.map((userDoc) => {
     const data = userDoc.data();
-    console.log(data);
+    // console.log(data);
     return { ...data };
   })
 
