@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.btn-google img {
+  height: 50px;
+  width: 50px;
+}

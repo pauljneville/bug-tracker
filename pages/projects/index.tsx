@@ -14,9 +14,11 @@ export default function Projects() {
     useEffect(() => {
         // declare the data fetching function
         const fetchData = async () => {
+            const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
             try {
-                //`usernames/${username}/projects
-                const projectsRef = collection(firestore, 'projects');
+                //`users/${username}/projects
+                const projectsRef = collection(firestore, 'users', uid, 'projects');
+                // const projectsRef = collection(firestore, 'projects');
                 const q = query(projectsRef);//, where('username', '==', username));
                 const snapshot = await getDocs(q);
                 const projects = snapshot?.docs?.map((projectDoc) => {
@@ -38,7 +40,6 @@ export default function Projects() {
     /**
      * return table of projects
      */
-
     return (
         <>
             <Metatags title="Projects"
@@ -46,9 +47,17 @@ export default function Projects() {
             />
             <main>
                 <h1>Projects</h1>
+                {username ?? "john-campbell"}{" "}
+                {user?.uid ?? "eKlX03CN4MhrjJNp7sne"}
                 <ul>
-                    {projects?.map((project) => {
-                        return (<li key={project?.code ?? "1"}>{project?.owner} {project?.projectName} - {project?.stage}</li>);
+                    {projects?.map((project, index) => {
+                        return (
+                            <li key={project?.code ?? index}>
+                                <Link href={`/projects/${project?.code}`}>
+                                    <a>{project?.code} {project?.name} - {project?.stage}</a>
+                                </Link>
+                            </li>
+                        );
                     })}
                 </ul>
             </main>
