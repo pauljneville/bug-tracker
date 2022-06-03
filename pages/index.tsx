@@ -26,8 +26,8 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ users }) {
-  console.log("------ users ------");
-  console.log(users);
+  // console.log("------ users ------");
+  // console.log(users);
   return (
     <div className={styles.container}>
       <Metatags />
