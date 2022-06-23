@@ -173,8 +173,6 @@ const UsernameForm = () => {
     );
 }
 
-
-
 function UsernameMessage({ username, isValid, loading }) {
     if (loading) {
         return <p>Checking...</p>;

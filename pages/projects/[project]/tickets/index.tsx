@@ -9,43 +9,22 @@ import { useRouter } from 'next/router';
 export default function Tickets() {
     const { user, username } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
-    const [projectData, setProjectData] = useState(null);
+    const [projectData, setProjectData] = useState([]);
     const [tickets, setTickets] = useState([]);
 
     const router = useRouter();
-    let { ticket } = router.query;
 
     useEffect(() => {
         // declare the data fetching function
         const fetchData = async () => {
             const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
-            const projectCode = String(ticket);
             try {
-                console.log(ticket);
-                if (!ticket) {
-                    router.push("/");
-                    return;
-                }
                 // check that the user has that project assigned to them
-                const userProjectRef = collection(firestore, 'users', uid, 'projects');
-                const qUP = query(userProjectRef, where('code', '==', ticket), limit(1));
+                const userProjectRef = collection(firestore, 'users', uid, 'tickets');
+                const qUP = query(userProjectRef, limit(5));
                 const snapshotUP = await getDocs(qUP);
-                const userProject = snapshotUP?.docs[0]?.data();
-                setProjectData(userProject);
-
-                // if they do have that project assigned, get the project's data and tickets
-                if (userProject != null) {
-                    const ticketsRef = collection(firestore, 'projects', projectCode, 'tickets');
-                    console.log(ticket);
-                    const q = query(ticketsRef);
-                    const snapshot = await getDocs(q);
-                    const tickets = snapshot?.docs?.map((ticketDoc) => {
-                        const data = ticketDoc.data();
-                        return { ...data };
-                    });
-                    console.log(tickets);
-                    setTickets(tickets);
-                }
+                const userTickets = snapshotUP?.docs?.map((ticket) => { return ticket.data() });
+                setProjectData(userTickets);
             } catch (err) {
                 console.error(err);
             }
@@ -64,8 +43,14 @@ export default function Tickets() {
             />
             <main>
                 <h1>Project Tickets</h1>
-                <p>{projectData?.code} - {projectData?.name}</p>
-                <p>{projectData?.description}</p>
+                <ol>
+                    {projectData.map((ticketData) => {
+                        return (
+                            <li>{ticketData?.code} - {ticketData?.projectCode} - {ticketData?.projectName}</li>
+                        );
+                    })}
+                </ol>
+
 
                 <ul>
                     {tickets?.map((ticket, index) => {
