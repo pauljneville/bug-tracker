@@ -10,7 +10,6 @@ export default function Tickets() {
     const { user, username } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [projectData, setProjectData] = useState([]);
-    const [tickets, setTickets] = useState([]);
 
     const router = useRouter();
 
@@ -50,19 +49,6 @@ export default function Tickets() {
                         );
                     })}
                 </ol>
-
-
-                <ul>
-                    {tickets?.map((ticket, index) => {
-                        return (
-                            <li key={ticket?.code ?? index}>
-                                <Link href={`/tickets/${ticket?.code}`}>
-                                    <a>{ticket?.code} {ticket?.projectCode} - {ticket?.projectName} ticket</a>
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </ul>
 
             </main>
         </>
