@@ -15,7 +15,7 @@ function Template({ children }) {
         <Mjml>
             <MjmlBody width={500}>
                 {/* Custom decorative component */}
-                <Hero />
+                {/* <Hero /> */}
                 {/* Content for the email goes here */}
                 <MjmlSection backgroundColor="#EFEFEF">
                     <MjmlColumn>
@@ -24,11 +24,13 @@ function Template({ children }) {
                 </MjmlSection>
                 {/* Footer stuff, like the unsubscribe link */}
                 <MjmlSection>
-                    <MjmlText>
-                        <a href="{{unsubscribe_url}}">
-                            Unsubscribe
-                        </a>
-                    </MjmlText>
+                    <MjmlColumn>
+                        <MjmlText>
+                            <a href="{{unsubscribe_url}}">
+                                Unsubscribe
+                            </a>
+                        </MjmlText>
+                    </MjmlColumn>
                 </MjmlSection>
             </MjmlBody>
         </Mjml>
