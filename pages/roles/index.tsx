@@ -72,43 +72,35 @@ export default function Roles() {
                 <ul>
                     {rolesData.map((role) => {
                         return (
-                            <li key={role.title}>
-                                {role.title}
-                                <ul>
-                                    {role.entries?.map((entry) => {
-                                        return (
-                                            <li key={entry.role + entry.userId}>
-                                                {entry.userId}
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </li>
+                            <Role role />
                         );
                     })}
                 </ul>
-
-                {/* <h1>Users</h1>
-                <ol>
-                    {usersData.map((userData) => {
-                        return (
-                            <li key={userData?.username}>
-                                {userData?.username}
-                                <ul>
-                                    {userData?.roles.map(
-                                        (role) => {
-                                            return (
-                                                <li key={role}>
-                                                    {role}
-                                                </li>
-                                            );
-                                        })}
-                                </ul>
-                            </li>
-                        );
-                    })}
-                </ol> */}
             </main>
         </>
+    );
+}
+
+
+function UserRole(entry) {
+    return (
+        <li key={entry.role + entry.userId}>
+            {entry.userId}
+        </li>
+    );
+}
+
+function Role(role) {
+    return (
+        <li key={role.title}>
+            {role.title}
+            <ul>
+                {role.entries?.map((entry) => {
+                    return (
+                        <UserRole entry />
+                    );
+                })}
+            </ul>
+        </li>
     );
 }

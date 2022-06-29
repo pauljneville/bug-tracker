@@ -148,15 +148,25 @@ export default function Projects() {
             const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
             try {
                 //`users/${username}/projects
-                const projectsRef = collection(firestore, 'users', uid, 'projects');
+                const userProjectsRef = collection(firestore, 'users', uid, 'projects');
                 // const projectsRef = collection(firestore, 'projects');
-                const q = query(projectsRef);//, where('username', '==', username));
-                const snapshot = await getDocs(q);
-                const projects = snapshot?.docs?.map((projectDoc) => {
+                const userProjectsQuery = query(userProjectsRef);//, where('username', '==', username));
+                const userProjectsSnapshot = await getDocs(userProjectsQuery);
+                const userProjects = userProjectsSnapshot?.docs?.map((projectDoc) => {
                     const data = projectDoc.data();
                     return { ...data };
                 });
-                setProjects(projects);
+
+                // setProjects(userProjects);
+                let projectRows = [];
+                for (let project of userProjects) {
+                    const projectSnapshot = await getDoc(doc(firestore, 'projects', project.code));
+                    if (projectSnapshot.exists()) {
+                        console.log(projectSnapshot.data());
+                        projectRows.push(projectSnapshot.data());
+                    }
+                }
+                setProjects(projectRows);
             } catch (err) {
                 console.error(err);
             }
@@ -180,17 +190,60 @@ export default function Projects() {
                 <h1>Projects</h1>
                 Hello {username ?? "john-campbell"}{" "}
                 {user?.uid ?? "eKlX03CN4MhrjJNp7sne"}
-                <ul>
-                    {projects?.map((project, index) => {
-                        return (
-                            <li key={project?.code ?? index}>
-                                <Link href={`/projects/${project?.code}`}>
-                                    <a>{project?.code} {project?.name} - {project?.stage}</a>
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            {["Code", "Project Name", "Owner", "Version", "Last Updated", "Tickets", "Bells"].map((header, index) => {
+                                return (<th key={index}>{header}</th>);
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {projects?.map((project, index) => {
+                            return (
+                                <tr key={project.code}>
+                                    <td key={project.code}>
+                                        <Link href={`/projects/${project?.code}`}>
+                                            <a>{project?.code}</a>
+                                        </Link>
+                                    </td>
+                                    <td key={project.code + "name"}>
+                                        <Link href={`/projects/${project?.code}`}>
+                                            <a>{project?.name}</a>
+                                        </Link>
+                                    </td>
+                                    <td key={project.code + "owner"}>
+                                        <Link href={`/projects/${project?.code}`}>
+                                            <a>{project?.owner}</a>
+                                        </Link>
+                                    </td>
+                                    <td key={project.code + "version"}>
+                                        <Link href={`/projects/${project?.code}`}>
+                                            <a>{project?.version}</a>
+                                        </Link>
+                                    </td>
+                                    <td key={project.code + "lastUpdated"}>
+                                        <Link href={`/projects/${project?.code}`}>
+                                            <a>
+                                                {project?.lastUpdated.toDate().getDate().toString()}
+                                                /
+                                                {project?.lastUpdated.toDate().getMonth().toString()}
+                                                /
+                                                {project?.lastUpdated.toDate().getFullYear().toString()}
+                                            </a>
+                                        </Link>
+                                    </td>
+                                    <td key={project.code + "working"}>
+                                        <Link href={`/projects/${project?.code}`}>
+                                            <a>{project?.ticketCounts?.working ?? 0}</a>
+                                        </Link>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
 
                 <h2>Add New Project</h2>
                 <NewProjectForm />
