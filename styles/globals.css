@@ -32,3 +32,7 @@ th {
   padding: 0 20px;
   text-align: center;
 }
+
+td {
+  height: 25px;
+}

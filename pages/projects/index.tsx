@@ -136,16 +136,29 @@ const NewProjectForm = () => {
     );
 }
 
+function EmptyRows({ columnCount, rowCount }) {
+    const rows = [];
+    for (let i = 0; i < rowCount; ++i) {
+        rows.push(
+            <tr key={"empty" + i}>
+                {[...Array(columnCount)].map((val, index) => { return (<td key={i + index}>{" "}</td>); })}
+            </tr>
+        );
+    }
+    return (<>{rows}</>);
+}
 
 export default function Projects() {
     const { user, username } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [projects, setProjects] = useState([]);
+    const MIN_PROJECT_TABLE_ROWS = 10;
 
     useEffect(() => {
         // declare the data fetching function
         const fetchData = async () => {
             const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
+            setLoading(true);
             try {
                 //`users/${username}/projects
                 const userProjectsRef = collection(firestore, 'users', uid, 'projects');
@@ -162,11 +175,11 @@ export default function Projects() {
                 for (let project of userProjects) {
                     const projectSnapshot = await getDoc(doc(firestore, 'projects', project.code));
                     if (projectSnapshot.exists()) {
-                        console.log(projectSnapshot.data());
                         projectRows.push(projectSnapshot.data());
                     }
                 }
                 setProjects(projectRows);
+                setLoading(false);
             } catch (err) {
                 console.error(err);
             }
@@ -178,6 +191,7 @@ export default function Projects() {
             .catch(console.error);
     }, []);
 
+    const columnHeaders = ["Code", "Project Name", "Owner", "Version", "Last Updated", "Tickets", "Bells"];
     /**
      * return table of projects
      */
@@ -190,10 +204,11 @@ export default function Projects() {
                 <h1>Projects</h1>
                 Hello {username ?? "john-campbell"}{" "}
                 {user?.uid ?? "eKlX03CN4MhrjJNp7sne"}
+                {/* {loading && <p>loading</p>} */}
                 <table>
                     <thead>
                         <tr>
-                            {["Code", "Project Name", "Owner", "Version", "Last Updated", "Tickets", "Bells"].map((header, index) => {
+                            {columnHeaders.map((header, index) => {
                                 return (<th key={index}>{header}</th>);
                             })}
                         </tr>
@@ -242,6 +257,7 @@ export default function Projects() {
                                 </tr>
                             );
                         })}
+                        <EmptyRows columnCount={columnHeaders.length} rowCount={MIN_PROJECT_TABLE_ROWS - projects.length} />
                     </tbody>
                 </table>
 
@@ -251,3 +267,4 @@ export default function Projects() {
         </>
     );
 }
+
