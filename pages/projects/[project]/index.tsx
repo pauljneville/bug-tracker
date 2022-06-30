@@ -5,6 +5,7 @@ import { UserContext } from '../../../lib/context';
 import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignOut } from '../../../lib/firebase';
 import { getFirestore, addDoc, setDoc, doc, collection, onSnapshot, getDoc, getDocs, writeBatch, query, where, limit, Timestamp, serverTimestamp } from 'firebase/firestore'
 import { useRouter } from 'next/router';
+import { connectStorageEmulator } from 'firebase/storage';
 
 export default function ProjectDetails() {
     const { user, username } = useContext(UserContext);
@@ -13,53 +14,53 @@ export default function ProjectDetails() {
     const [tickets, setTickets] = useState([]);
 
     const router = useRouter();
-    let { project } = router.query;
+    // let { project } = router.query;
 
     useEffect(() => {
-        // declare the data fetching function
-        const fetchData = async () => {
-            const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
-            const projectCode = String(project);
-            try {
-                if (!project) {
-                    router.push("/");
-                    return;
-                }
-                // check that the user has that project assigned to them
-                const userProjectRef = collection(firestore, 'users', uid, 'projects');
-                const qUP = query(userProjectRef, where('code', '==', project), limit(1));
-                const snapshotUP = await getDocs(qUP);
-                const userProject = snapshotUP?.docs[0]?.data();
+        if (router.isReady) {
+            const { project } = router.query;
 
-                // if they do have that project assigned, get the project's data to display
-                if (userProject != null) {
-                    const projectsRef = collection(firestore, 'projects');
-                    const q = query(projectsRef, where('code', '==', project));
-                    const snapshot = await getDocs(q);
-                    const projectData = snapshot?.docs[0]?.data();
-                    setProjectData(projectData);
+            // declare the data fetching function
+            const fetchData = async () => {
+                const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
+                const projectCode = String(project);
+                try {
+                    // check that the user has that project assigned to them
+                    const userProjectRef = collection(firestore, 'users', uid, 'projects');
+                    const qUP = query(userProjectRef, where('code', '==', project), limit(1));
+                    const snapshotUP = await getDocs(qUP);
+                    const userProject = snapshotUP?.docs[0]?.data();
 
-                    // get the tickets for the project
-                    const ticketsRef = collection(firestore, 'projects', projectCode, 'tickets');
-                    console.log(project);
-                    const qTickets = query(ticketsRef);
-                    const snapshotTickets = await getDocs(qTickets);
-                    const tickets = snapshotTickets?.docs?.map((ticketDoc) => {
-                        const data = ticketDoc.data();
-                        return { ...data };
-                    });
-                    setTickets(tickets);
+                    // if they do have that project assigned, get the project's data to display
+                    if (userProject != null) {
+                        const projectsRef = collection(firestore, 'projects');
+                        const q = query(projectsRef, where('code', '==', project));
+                        const snapshot = await getDocs(q);
+                        const projectData = snapshot?.docs[0]?.data();
+                        setProjectData(projectData);
+
+                        // get the tickets for the project
+                        const ticketsRef = collection(firestore, 'projects', projectCode, 'tickets');
+                        console.log(project);
+                        const qTickets = query(ticketsRef);
+                        const snapshotTickets = await getDocs(qTickets);
+                        const tickets = snapshotTickets?.docs?.map((ticketDoc) => {
+                            const data = ticketDoc.data();
+                            return { ...data };
+                        });
+                        setTickets(tickets);
+                    }
+                } catch (err) {
+                    console.error(err);
                 }
-            } catch (err) {
-                console.error(err);
             }
-        }
 
-        // call the function
-        fetchData()
-            // make sure to catch any error
-            .catch(console.error);
-    }, []);
+            // call the function
+            fetchData()
+                // make sure to catch any error
+                .catch(console.error);
+        }
+    }, [router.isReady]);
 
     return (
         <>
@@ -73,8 +74,6 @@ export default function ProjectDetails() {
                 <Link href={`/projects/${projectData?.code}/tickets`}><a><h2>Tickets</h2></a></Link>
                 <ul>
                     {tickets?.map((ticket, index) => {
-                        console.log("ticket");
-                        console.log(ticket);
                         return (
                             <li key={ticket?.code ?? index}>
                                 <Link href={`/projects/${projectData?.code}/tickets/${ticket?.code}`}>

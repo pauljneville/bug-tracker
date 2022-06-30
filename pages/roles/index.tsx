@@ -5,6 +5,7 @@ import { UserContext } from '../../lib/context';
 import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignOut } from '../../lib/firebase';
 import { getFirestore, addDoc, setDoc, doc, collection, collectionGroup, onSnapshot, getDoc, getDocs, writeBatch, query, where, limit, Timestamp, serverTimestamp } from 'firebase/firestore'
 import { useRouter } from 'next/router';
+import { connectStorageEmulator } from 'firebase/storage';
 
 export default function Roles() {
     const { user, username } = useContext(UserContext);
@@ -31,7 +32,7 @@ export default function Roles() {
                 const roles = rolesSnapshot?.docs?.map((role) => {
                     return role.data();
                 });
-                setRolesData(roles);
+                // setRolesData(roles);
 
                 for (let role of roles) {
                     const entriesQuery = query(collection(firestore, 'roles', role.roleId, 'entries'));
@@ -48,7 +49,8 @@ export default function Roles() {
                 //     });
                 //     return role;
                 // });
-                setEntriesData(roles);
+                // setEntriesData(roles);
+                setRolesData(roles);
             } catch (err) {
                 console.error(err);
             }
@@ -72,7 +74,7 @@ export default function Roles() {
                 <ul>
                     {rolesData.map((role) => {
                         return (
-                            <Role role />
+                            <Role key={role.roleId} role={role} />
                         );
                     })}
                 </ul>
@@ -81,26 +83,25 @@ export default function Roles() {
     );
 }
 
-
-function UserRole(entry) {
-    return (
-        <li key={entry.role + entry.userId}>
-            {entry.userId}
-        </li>
-    );
-}
-
-function Role(role) {
+function Role({ role }) {
     return (
         <li key={role.title}>
             {role.title}
             <ul>
                 {role.entries?.map((entry) => {
                     return (
-                        <UserRole entry />
+                        <UserRole key={entry.userId} entry={entry} />
                     );
                 })}
             </ul>
+        </li>
+    );
+}
+
+function UserRole({ entry }) {
+    return (
+        <li key={entry.role + entry.userId}>
+            {entry.userId}
         </li>
     );
 }

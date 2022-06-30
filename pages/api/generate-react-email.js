@@ -22,7 +22,7 @@ export default async function generateEmail(req, res) {
                 <MjmlSection backgroundColor="#EFEFEF">
                     <MjmlColumn>
                         <LinkToPost
-                            socialImage="/images/vercel.svg"
+                            socialImage="/vercel.svg"
                             // title="Some Blog Post"
                             href="/"
                         />

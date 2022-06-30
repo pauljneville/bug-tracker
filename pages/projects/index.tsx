@@ -191,7 +191,7 @@ export default function Projects() {
             .catch(console.error);
     }, []);
 
-    const columnHeaders = ["Code", "Project Name", "Owner", "Version", "Last Updated", "Tickets", "Bells"];
+    const columnHeaders = ["Code", "Project Name", "Owner", "Version", "Last Updated", "Tickets", "Bells", "..."];
     /**
      * return table of projects
      */
@@ -219,32 +219,32 @@ export default function Projects() {
                                 <tr key={project.code}>
                                     <td key={project.code}>
                                         <Link href={`/projects/${project?.code}`}>
-                                            <a>{project?.code}</a>
+                                            <a>{project?.code ?? "code"}</a>
                                         </Link>
                                     </td>
                                     <td key={project.code + "name"}>
                                         <Link href={`/projects/${project?.code}`}>
-                                            <a>{project?.name}</a>
+                                            <a>{project?.name ?? "name"}</a>
                                         </Link>
                                     </td>
                                     <td key={project.code + "owner"}>
                                         <Link href={`/projects/${project?.code}`}>
-                                            <a>{project?.owner}</a>
+                                            <a>{project?.owner ?? "owner"}</a>
                                         </Link>
                                     </td>
                                     <td key={project.code + "version"}>
                                         <Link href={`/projects/${project?.code}`}>
-                                            <a>{project?.version}</a>
+                                            <a>{project?.version ?? "version"}</a>
                                         </Link>
                                     </td>
                                     <td key={project.code + "lastUpdated"}>
                                         <Link href={`/projects/${project?.code}`}>
                                             <a>
-                                                {project?.lastUpdated.toDate().getDate().toString()}
+                                                {project?.lastUpdated?.toDate().getDate().toString()}
                                                 /
-                                                {project?.lastUpdated.toDate().getMonth().toString()}
+                                                {project?.lastUpdated?.toDate().getMonth().toString()}
                                                 /
-                                                {project?.lastUpdated.toDate().getFullYear().toString()}
+                                                {project?.lastUpdated?.toDate().getFullYear().toString()}
                                             </a>
                                         </Link>
                                     </td>
@@ -253,6 +253,7 @@ export default function Projects() {
                                             <a>{project?.ticketCounts?.working ?? 0}</a>
                                         </Link>
                                     </td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                             );

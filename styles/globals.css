@@ -36,3 +36,15 @@ th {
 td {
   height: 25px;
 }
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.demo-button {
+  background-color: #3c78f1;
+  color: white;
+  padding: 0.5rem 0.5rem;
+}

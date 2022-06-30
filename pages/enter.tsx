@@ -25,11 +25,22 @@ export default function EnterPage(props) {
 
     return (
         <main>
-            {user ?
-                !username ? <UsernameForm /> : <></> : <SignInButton />
-            }
+            <div className="column">
+                {user ?
+                    !username ? <UsernameForm /> : <></> : <SignInButton />
+                }
+                {!user &&
+                    <button className="demo-button" onClick={onDemoSignIn}>
+                        Demo Sign-in
+                    </button>
+                }
+            </div>
         </main>
     )
+}
+
+const onDemoSignIn = (e) => {
+    Router.push('/projects');
 }
 
 const SignInButton = () => {
