@@ -8,6 +8,7 @@ import { getFirestore, addDoc, setDoc, doc, collection, onSnapshot, getDoc, getD
 import debounce from 'lodash.debounce';
 // TODO change styles
 import styles from '../../styles/EnterPage.module.css';
+import Router from 'next/router'
 
 const NewProjectForm = () => {
     const [projectDescription, setProjectDescription] = useState('');
@@ -26,23 +27,14 @@ const NewProjectForm = () => {
     //     checkProjectName(projectName);
     // }, [projectName]);
 
-    const onProjectNameChange = (e) => {
-        // username must be between 3 and 15 characters long
-        // containing only letters, numbers, underscore
-        const val = e.target.value.toLowerCase();
-        const re = /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+    useEffect(() => {
+        setProjectCode("");
+        setProjectDescription("");
+        setProjectName("");
+    }, []);
 
-        // check that username is >= 3 characters and passes regex format
-        if (val.length < 3) {
-            setProjectName(val);
-            setLoading(false);
-            setIsValid(false);
-        }
-        if (re.test(val)) {
-            setProjectName(val);
-            setLoading(true);
-            setIsValid(false);
-        }
+    const onProjectNameChange = (e) => {
+        setProjectName(e.target.value);
     };
 
     // TODO change regex to accept hyphen and numbers
@@ -67,16 +59,19 @@ const NewProjectForm = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
+        const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
+
         // get/create the documents that will change in this operation
-        const userDoc = doc(firestore, `projects/${projectCode}`);
+        const projectDoc = doc(firestore, `projects/${projectCode}`);
+        const projectUsersSubDoc = doc(firestore, `projects/${projectCode}/users/${uid}`);
         // TODO add project code to projects list
-        // const usernameDoc = doc(firestore, `usernames/${projectName}`);
+        const userProjectDoc = doc(firestore, `users/${uid}/projects/${projectCode}`);
 
         const batch = writeBatch(firestore);
         try {
             // batch set the changes to the documents
             batch.set(
-                userDoc,
+                projectDoc,
                 {
                     code: projectCode,
                     description: projectDescription,
@@ -93,19 +88,33 @@ const NewProjectForm = () => {
                         working: 0,
                     },
                     version: "0.0.1",
+                    lastUpdated: serverTimestamp(),
                 }
             );
             // TODO add project code to projects list
-            // batch.set(usernameDoc, { uid: user.uid });
+            batch.set(userProjectDoc,
+                {
+                    code: projectCode,
+                    name: projectName,
+                }
+            );
+            batch.set(projectUsersSubDoc,
+                {
+                    displayName: user?.displayName ?? "John Campbell",
+                    projectRoles: [
+                        "manager",
+                        "developer",
+                    ],
+                    username: user?.username ?? "john-campbell",
+                }
+            );
             await batch.commit();
         } catch (error) {
             console.error("error with user batch write");
             console.error(error);
         }
 
-        setProjectCode("");
-        setProjectDescription("");
-        setProjectName("");
+        Router.push('/projects');
     };
 
     return (
