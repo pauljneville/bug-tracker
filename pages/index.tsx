@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Metatags from '../components/Metatags'
 import { getAllUsers } from '../lib/firebase'
-import styles from '../styles/Home.module.css'
+import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
 import { Box, Typography, AppBar, Card, CardActions, CardContent, CardMedia, Grid, Toolbar, Container, Button, ButtonGroup, List, ListItem } from '@mui/material'
 import { PhotoCameraTwoTone } from '@mui/icons-material';
