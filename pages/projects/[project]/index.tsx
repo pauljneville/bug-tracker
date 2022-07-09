@@ -60,7 +60,7 @@ export default function ProjectDetails() {
                 // make sure to catch any error
                 .catch(console.error);
         }
-    }, [router.isReady]);
+    }, [router.isReady, router.query, user?.uid]);
 
     return (
         <>

@@ -21,7 +21,7 @@ export default function Tickets() {
 
             // declare the data fetching function
             const fetchData = async () => {
-                const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
+                // const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
                 try {
                     // check that the user has that project assigned to them
                     // const entriesRef = collectionGroup(firestore, 'entries');
@@ -56,7 +56,7 @@ export default function Tickets() {
                 // make sure to catch any error
                 .catch(console.error);
         }
-    }, [router.isReady]);
+    }, [router.isReady, router.query]);
 
     return (
         <>

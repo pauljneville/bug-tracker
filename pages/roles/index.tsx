@@ -18,7 +18,7 @@ export default function Roles() {
     useEffect(() => {
         // declare the data fetching function
         const fetchData = async () => {
-            const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
+            // const uid = user?.uid ?? "eKlX03CN4MhrjJNp7sne";
             try {
                 // check that the user has that project assigned to them
                 // const entiresRef = collectionGroup(firestore, 'entries');

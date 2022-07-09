@@ -198,7 +198,7 @@ export default function Projects() {
         fetchData()
             // make sure to catch any error
             .catch(console.error);
-    }, []);
+    }, [user?.uid]);
 
     const columnHeaders = ["Code", "Project Name", "Owner", "Version", "Last Updated", "Tickets", "Bells", "..."];
     /**
