@@ -1,11 +1,11 @@
-.enterForm {
+.newProjectForm {
     display: flex;
     flex-direction: column;
     width: 200px;
     padding: 5px;
 }
 
-.enterForm input {
+.newProjectForm input {
     padding: 5px;
     margin: 5px;
 }

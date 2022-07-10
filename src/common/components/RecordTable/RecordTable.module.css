@@ -1,0 +1,25 @@
+.recordTable>table,
+.recordTable td,
+.recordTable th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.recordTable td,
+.recordTable th {
+    padding: 0;
+    text-align: center;
+}
+
+.recordTable td {
+    height: 40px;
+    min-width: 100px;
+}
+
+.recordTable td a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20px;
+}

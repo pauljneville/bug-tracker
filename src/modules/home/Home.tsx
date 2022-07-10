@@ -12,9 +12,6 @@ import { styled } from '@mui/material/styles';
 import { ClassNames } from '@emotion/react';
 import theme from '@styles/theme';
 
-
-
-
 export const Home = ({ users }) => {
 
     const containerStyle = {
@@ -48,11 +45,6 @@ export const Home = ({ users }) => {
                         <Typography variant="h5" align="center" color="textPrimary" paragraph>
                             Additional screenshots to follow
                         </Typography>
-                        {/* <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                <Button>One</Button>
-                <Button>Two</Button>
-                <Button>Three</Button>
-              </ButtonGroup> */}
                         <Grid container spacing={2}>
                             <Grid item>
                                 <Button variant="contained" color="primary">

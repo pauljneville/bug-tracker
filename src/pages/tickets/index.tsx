@@ -60,7 +60,7 @@ export default function Tickets() {
             />
             <main>
                 <h1>Tickets</h1>
-                <h1>{user?.username ?? "john-campbell"}`&apos;`s Tickets</h1>
+                <h1>{user?.username ?? "john-campbell"}&apos;s Tickets</h1>
                 <ol>
                     {ticketsData.map((ticket) => {
                         return (
