@@ -6,12 +6,17 @@ import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignO
 import { getFirestore, addDoc, setDoc, doc, collection, collectionGroup, onSnapshot, getDoc, getDocs, writeBatch, query, where, limit, Timestamp, serverTimestamp } from 'firebase/firestore'
 import { useRouter } from 'next/router';
 
+import { RecordTable } from '@components/RecordTable';
+import { EmptyRows } from '@components/EmptyRows';
+import { RowTicketRecord } from '@components/RowTicketRecord';
+
 export default function Tickets() {
     const { user, username } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [ticketsData, setTicketsData] = useState([]);
 
     const router = useRouter();
+
 
     useEffect(() => {
         // declare the data fetching function
@@ -53,6 +58,10 @@ export default function Tickets() {
             .catch(console.error);
     }, [user?.uid]);
 
+    const MIN_PROJECT_TABLE_ROWS = 10;
+
+    const columnHeaders = ["Code", "Project Code", "Project Name", "Last Updated", "Bells", "..."];
+
     return (
         <>
             <Metatags title="Tickets"
@@ -61,13 +70,23 @@ export default function Tickets() {
             <main>
                 <h1>Tickets</h1>
                 <h1>{user?.username ?? "john-campbell"}&apos;s Tickets</h1>
-                <ol>
+
+                <RecordTable columnHeaders={columnHeaders}>
+                    {ticketsData?.map((record, index) => {
+                        return (
+                            <RowTicketRecord key={index} record={record} />
+                        );
+                    })}
+                    <EmptyRows columnCount={columnHeaders.length} rowCount={MIN_PROJECT_TABLE_ROWS - ticketsData.length} />
+                </RecordTable>
+
+                {/* <ol>
                     {ticketsData.map((ticket) => {
                         return (
                             <li key={ticket?.code}>{ticket?.code} - {ticket?.projectCode} - {ticket?.projectName}</li>
                         );
                     })}
-                </ol>
+                </ol> */}
 
             </main>
         </>

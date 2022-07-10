@@ -13,7 +13,7 @@ interface Props {
     },
 }
 
-export const RowProjectRecord: React.FC<Props> = ({ record }) => {
+export const RowRoleRecord: React.FC<Props> = ({ record }) => {
     return (
         <tr key={record?.code}>
             <td key={record?.code}>

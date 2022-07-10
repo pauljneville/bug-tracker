@@ -7,6 +7,10 @@ import { getFirestore, addDoc, setDoc, doc, collection, collectionGroup, onSnaps
 import { useRouter } from 'next/router';
 import { connectStorageEmulator } from 'firebase/storage';
 
+import { RecordTable } from '@components/RecordTable';
+import { EmptyRows } from '@components/EmptyRows';
+import { RowRoleRecord } from '@components/RowRoleRecord';
+
 export default function Roles() {
     const { user, username } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
@@ -62,7 +66,9 @@ export default function Roles() {
             .catch(console.error);
     }, []);
 
-    let currentRole = "";
+    const MIN_PROJECT_TABLE_ROWS = 10;
+
+    const columnHeaders = ["Code", "Project Code", "Project Name", "Last Updated", "Bells", "..."];
 
     return (
         <>
@@ -71,6 +77,14 @@ export default function Roles() {
             />
             <main>
                 <h1>Roles</h1>
+                <RecordTable columnHeaders={columnHeaders}>
+                    {rolesData?.map((record, index) => {
+                        return (
+                            <RowRoleRecord key={index} record={record} />
+                        );
+                    })}
+                    <EmptyRows columnCount={columnHeaders.length} rowCount={MIN_PROJECT_TABLE_ROWS - rolesData.length} />
+                </RecordTable>
                 <ul>
                     {rolesData.map((role) => {
                         return (
