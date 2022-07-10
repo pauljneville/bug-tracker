@@ -1,14 +1,14 @@
 import Link from 'next/link';
-import Metatags from '../components/Metatags';
+import Metatags from '../common/components/Metatags';
 
-export default function AdminPage() {
+export default function Custom404() {
     return (
         <>
-            <Metatags title="Admin Page"
-                description="Admin Only Page"
+            <Metatags title="404 Not Found"
+                description="No page with that name amigo"
             />
             <main>
-                <h1>Admin Page</h1>
+                <h1>404 - Page Not Found</h1>
                 <Link href="/" passHref={true}>
                     <button className="btn-blue">To Dashboard!</button>
                 </Link>

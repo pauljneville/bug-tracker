@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useContext } from 'react';
-import { UserContext } from '../lib/context';
-import { auth, googleSignOut } from '../lib/firebase';
+import { UserContext } from '../../../lib/context';
+import { auth, googleSignOut } from '../../../lib/firebase';
 import Image from 'next/image';
 import styles from '../styles/Navbar.module.css'
 

@@ -1,5 +1,5 @@
 import { AppBar, Button, List, Toolbar, Typography, Grid, Paper } from '@mui/material';
-import Link from '../src/Link';
+import Link from './Link';
 import styles from '../styles/TopNav.module.css'
 import { styled } from '@mui/material/styles';
 
@@ -7,7 +7,8 @@ import { FullscreenExitTwoTone, PhotoCamera } from '@mui/icons-material';
 import { PhotoCameraTwoTone } from '@mui/icons-material';
 
 export default function TopNav({ path }) {
-    const breadcrumbs = path.split("/", 4).slice(1);
+    // shows up to 7 levels path. 7 is arbitrary
+    const breadcrumbs = path.split("/", 7).slice(1);
     let currentPath = "";
 
     const flexContainer = {

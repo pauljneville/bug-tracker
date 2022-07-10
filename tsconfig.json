@@ -2,14 +2,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/components/*": [
-        "components/*"
+      "@components/*": [
+        "src/common/components/*"
       ],
-      "@/pages/*": [
-        "pages/*"
+      "@pages/*": [
+        "src/pages/*"
       ],
-      "@/styles/*": [
-        "styles/*"
+      "@styles/*": [
+        "src/common/styles/*"
       ]
     },
     "target": "es5",

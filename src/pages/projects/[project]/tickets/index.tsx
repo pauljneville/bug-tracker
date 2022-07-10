@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Metatags from '../../../../components/Metatags';
+import Metatags from '../../../../common/components/Metatags';
 import { useContext, useEffect, useState, useCallback } from 'react';
-import { UserContext } from '../../../../lib/context';
-import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignOut } from '../../../../lib/firebase';
+import { UserContext } from '../../../../../lib/context';
+import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignOut } from '../../../../../lib/firebase';
 import { getFirestore, addDoc, setDoc, doc, collection, collectionGroup, onSnapshot, getDoc, getDocs, writeBatch, query, where, limit, Timestamp, serverTimestamp } from 'firebase/firestore'
 import { useRouter } from 'next/router';
 

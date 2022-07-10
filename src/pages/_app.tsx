@@ -1,9 +1,9 @@
-import '../styles/globals.css'
-import { UserContext } from '../lib/context';
-import { useUserData } from '../lib/hooks';
-import Navbar from '../components/Navbar';
-import TopNav from '../components/TopNav';
-import TwoColumn from '../components/TwoColumn';
+import '../common/styles/globals.css'
+import { UserContext } from '../../lib/context';
+import { useUserData } from '../../lib/hooks';
+import Navbar from '../common/components/Navbar';
+import TopNav from '../common/components/TopNav';
+import TwoColumn from '../common/components/TwoColumn';
 import { useRouter } from 'next/router'
 
 import * as React from 'react';
@@ -13,8 +13,8 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import theme from '../src/theme';
-import createEmotionCache from '../src/createEmotionCache';
+import theme from '../common/styles/theme';
+import createEmotionCache from '../config/createEmotionCache';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

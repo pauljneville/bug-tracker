@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState, useCallback } from 'react';
-import { UserContext } from '../lib/context';
-import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignOut } from '../lib/firebase';
+import { UserContext } from '../../lib/context';
+import { firestore, auth, googleAuthProvider, googleSignInWithPopup, googleSignOut } from '../../lib/firebase';
 import { doc, getDoc, writeBatch } from 'firebase/firestore'
 import debounce from 'lodash.debounce';
 import { useForm } from 'react-hook-form';
-import styles from '../styles/EnterPage.module.css';
+import styles from '../components/styles/EnterPage.module.css';
 import Router from 'next/router'
 import Link from 'next/link';
 
