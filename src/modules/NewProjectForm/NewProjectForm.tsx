@@ -106,8 +106,8 @@ export const NewProjectForm = () => {
                 <h3>Enter Project Details</h3>
                 <form onSubmit={onSubmit} className={styles.newProjectForm}>
                     <input placeholder="project code" onChange={(e) => setProjectCode(e.target.value)} value={projectCode} />
-                    <input placeholder="project description" onChange={(e) => setProjectDescription(e.target.value)} />
-                    <input placeholder="project name" onChange={(e) => setProjectName(e.target.value)} />
+                    <input placeholder="project description" onChange={(e) => setProjectDescription(e.target.value)} value={projectDescription} />
+                    <input placeholder="project name" onChange={(e) => setProjectName(e.target.value)} value={projectName} />
 
                     {/* <UsernameMessage username={projectName} isValid={isValid} loading={loading} /> */}
                     <button type="submit">
