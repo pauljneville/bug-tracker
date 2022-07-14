@@ -28,19 +28,6 @@ export const NewProjectForm = () => {
         setProjectName("");
     }, []);
 
-    const onProjectNameChange = (e) => {
-        setProjectName(e.target.value);
-    };
-
-    // TODO change regex to accept hyphen and numbers
-    const onProjectCodeChange = (e) => {
-        setProjectCode(e.target.value);
-    };
-
-    const onProjectDescriptionChange = (e) => {
-        setProjectDescription(e.target.value);
-    };
-
     // const checkProjectName = useCallback(debounce(async (username) => {
     //     if (username.length >= 3) {
     //         const ref = doc(firestore, `usernames/${username}`);
@@ -118,9 +105,10 @@ export const NewProjectForm = () => {
             <section>
                 <h3>Enter Project Details</h3>
                 <form onSubmit={onSubmit} className={styles.newProjectForm}>
-                    <input placeholder="project code" onChange={onProjectCodeChange} />
-                    <input placeholder="project description" onChange={onProjectDescriptionChange} />
-                    <input placeholder="project name" onChange={onProjectNameChange} />
+                    <input placeholder="project code" onChange={(e) => setProjectCode(e.target.value)} value={projectCode} />
+                    <input placeholder="project description" onChange={(e) => setProjectDescription(e.target.value)} />
+                    <input placeholder="project name" onChange={(e) => setProjectName(e.target.value)} />
+
                     {/* <UsernameMessage username={projectName} isValid={isValid} loading={loading} /> */}
                     <button type="submit">
                         Create New Project
